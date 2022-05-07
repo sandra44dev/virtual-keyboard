@@ -4,7 +4,7 @@ body {
   margin: 0;
   background-color: rosybrown;
   color: #303030;
-  font-size: 25px;
+  font-size: 23px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
 }
@@ -19,8 +19,9 @@ body {
 .keyboard {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  min-width: 800px;
+  gap: 7px;
+  width: 830px;
+  justify-content: center;
   margin: 30px auto 0 auto;
 }
 
@@ -38,10 +39,10 @@ textarea {
 
 .key {
   display: flex;
-  width: 50px;
-  height: 50px;
-  border-radius: 15px;
-  background-color: #e1cdcd;
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #e6d6d6;
   border: 1px solid #303030;
   justify-content: center;
   align-items: center;
@@ -49,5 +50,12 @@ textarea {
 }
 
 .key:active {
-  background-color: #d2bebe;
+  background-color: #d8bfbf;
+}
+
+.side-key {
+  width: auto;
+  min-width: 25px;
+  background-color: #b5bab2;
+  padding: 0 10px;
 }

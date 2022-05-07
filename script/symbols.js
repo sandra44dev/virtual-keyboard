@@ -5,6 +5,10 @@ const FIRST_LINE_SYMBOLS = Array.from([
         'ru': 'ё',
     },
     {
+        'default': '1',
+        'shift': '!',
+    },
+    {
         'default': '2',
         'shift': '@',
     },
@@ -53,14 +57,14 @@ const FIRST_LINE_SYMBOLS = Array.from([
     },
 ])
 
-const SECOND_LINE_SYMBOLS = Array.from([
-    {
-        'default': 'tab',
-    },
-    {
-        'en': 'q',
-        'ru': 'й',
-    },
-])
+// const SECOND_LINE_SYMBOLS = Array.from([
+//     {
+//         'default': 'tab',
+//     },
+//     {
+//         'en': 'q',
+//         'ru': 'й',
+//     },
+// ])
 
-export { FIRST_LINE_SYMBOLS, SECOND_LINE_SYMBOLS }; // список экспортируемых переменных
+export { FIRST_LINE_SYMBOLS }; // список экспортируемых переменных

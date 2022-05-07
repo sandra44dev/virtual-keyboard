@@ -3,15 +3,16 @@
 $background: rosybrown;
 $textarea-color: rgb(240, 240, 240);
 $main-color: rgb(48, 48, 48);
-$main-key-color: rgb(225, 205, 205);
-$active-key-color: rgb(210, 190, 190);
+$main-key-color: rgb(230, 214, 214);
+$side-key-color: rgb(181, 186, 178);
+$active-key-color: rgb(216, 191, 191);
 
 body {
     padding: 0;
     margin: 0;
     background-color: $background;
     color: $main-color;
-    font-size: 25px;
+    font-size: 23px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-sizing: border-box;
 }
@@ -26,8 +27,9 @@ body {
 .keyboard {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    min-width: 800px;
+    gap: 7px;
+    width: 830px;
+    justify-content: center;
     margin: 30px auto 0 auto;
 }
 
@@ -45,9 +47,9 @@ textarea {
 
 .key {
     display: flex;
-    width: 50px;
-    height: 50px;
-    border-radius: 15px;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
     background-color: $main-key-color;
     border: 1px solid $main-color;
 
@@ -59,4 +61,11 @@ textarea {
     &:active {
         background-color: $active-key-color;
     }
+}
+
+.side-key {
+    width: auto;
+    min-width: 25px;
+    background-color: $side-key-color;
+    padding: 0 10px;
 }
