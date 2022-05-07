@@ -1,0 +1,62 @@
+@import url(normalize.css);
+
+$background: rosybrown;
+$textarea-color: rgb(240, 240, 240);
+$main-color: rgb(48, 48, 48);
+$main-key-color: rgb(225, 205, 205);
+$active-key-color: rgb(210, 190, 190);
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: $background;
+    color: $main-color;
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    min-width: 800px;
+    margin: 50px auto 0 auto;
+    flex-direction: column;
+}
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-width: 800px;
+    margin: 30px auto 0 auto;
+}
+
+textarea {
+    font: inherit;
+    font-size: 20px;
+    width: 476px;
+    height: 115px;
+    padding: 20px;
+    margin: 0 auto;
+    outline: none;
+    border: 1px solid $textarea-color;
+    background-color: $textarea-color;
+}
+
+.key {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    background-color: $main-key-color;
+    border: 1px solid $main-color;
+
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+
+    &:active {
+        background-color: $active-key-color;
+    }
+}

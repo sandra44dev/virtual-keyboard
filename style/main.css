@@ -1,1 +1,53 @@
-/* No CSS */
+@import url(normalize.css);
+body {
+  padding: 0;
+  margin: 0;
+  background-color: rosybrown;
+  color: #303030;
+  font-size: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  min-width: 800px;
+  margin: 50px auto 0 auto;
+  flex-direction: column;
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 800px;
+  margin: 30px auto 0 auto;
+}
+
+textarea {
+  font: inherit;
+  font-size: 20px;
+  width: 476px;
+  height: 115px;
+  padding: 20px;
+  margin: 0 auto;
+  outline: none;
+  border: 1px solid #f0f0f0;
+  background-color: #f0f0f0;
+}
+
+.key {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  background-color: #e1cdcd;
+  border: 1px solid #303030;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.key:active {
+  background-color: #d2bebe;
+}
