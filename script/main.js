@@ -121,23 +121,26 @@ document.addEventListener('keydown', function (event) {
     else if (keycode == 'ShiftLeft' || keycode == 'ShiftRight') {
         addShift();
         event.target.addEventListener('keyup', removeShift);
-    }
-    else {
-        if (keycode == 'Tab' || keycode == 'AltLeft' || keycode == 'AltRight') {
+    } else {
+        if (keycode == 'AltLeft' || keycode == 'AltRight') {
+            event.preventDefault();
+        }
+        if (keycode == 'Tab') {
+            addTab();
             event.preventDefault();
         }
         let keyClass = document.querySelector(`.${keycode}`).classList;
-        if (keyClass.contains('key')) {
-            keyClass.add('key-pressed');
-        } else {
+        if (keyClass.contains('side-key')) {
             keyClass.add('side-key-pressed');
+        } else {
+            keyClass.add('key-pressed');
         }
 
         document.addEventListener('keyup', function () {
-            if (keyClass.contains('key')) {
-                keyClass.remove('key-pressed');
-            } else {
+            if (keyClass.contains('side-key')) {
                 keyClass.remove('side-key-pressed');
+            } else {
+                keyClass.remove('key-pressed');
             }
         });
     }
