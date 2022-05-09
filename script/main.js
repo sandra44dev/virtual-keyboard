@@ -157,8 +157,30 @@ function addTab() {
     TEXTAREA.focus();
 }
 
+function addEnter() {
+    const TEXTAREA = document.querySelector('.textarea');
+
+    TEXTAREA.focus();
+    let letter = '\n';
+
+    let cursorStart = TEXTAREA.selectionStart;
+    let cursorEnd = TEXTAREA.selectionEnd;
+    let currentText = TEXTAREA.value;
+
+    let stringStart = currentText.substring(0, cursorStart);
+    let stringEnd = currentText.substring(cursorEnd, currentText.length);
+
+    TEXTAREA.value = stringStart + letter + stringEnd;
+
+    cursorStart = cursorStart + 1;
+    cursorEnd = cursorStart;
+    TEXTAREA.setSelectionRange(cursorStart, cursorEnd);
+    TEXTAREA.focus();
+}
+
 
 addMarkup();
 addPrintFunc();
 document.querySelector('.Backspace').addEventListener('click', addBackspace);
 document.querySelector('.Tab').addEventListener('click', addTab);
+document.querySelector('.Enter').addEventListener('click', addEnter);
