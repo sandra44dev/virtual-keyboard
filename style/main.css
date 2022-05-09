@@ -44,6 +44,7 @@ textarea {
   margin: 30px auto 0px auto;
   line-height: 20px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  user-select: none;
 }
 
 .key {
@@ -127,4 +128,8 @@ textarea {
 
 .Space {
   width: 378px;
+}
+
+.ArrowUp {
+  max-width: 25px;
 }

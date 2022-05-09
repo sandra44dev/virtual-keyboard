@@ -51,7 +51,8 @@ function addMarkup() {
 
         if (newButton.symbol == '`' || newButton.symbol == 'Backspace' || newButton.symbol == 'Tab' || newButton.symbol == '\\' || newButton.symbol == 'Enter'
             || newButton.symbol == 'CapsLock' || newButton.symbol == 'Ctrl' || newButton.symbol == 'Alt' || newButton.symbol == 'Shift'
-            || newButton.symbol == ' ' || newButton.symbol == 'Shift') {
+            || newButton.symbol == ' ' || newButton.symbol == 'Shift' || newButton.code == 'ArrowLeft' || newButton.code == 'ArrowUp'
+            || newButton.code == 'ArrowDown' || newButton.code == 'ArrowRight') {
             newKey.classList.add('side-key');
         } else {
             newKey.classList.add('key');
@@ -87,8 +88,8 @@ function addPrintFunc() {
         item.addEventListener('mousedown', printSymbol);
     });
 
-    document.querySelector('.Backquote');
-    document.querySelector('.Backslash');
+    document.querySelector('.Backquote').addEventListener('mousedown', printSymbol);
+    document.querySelector('.Backslash').addEventListener('mousedown', printSymbol);
 }
 
 document.addEventListener('keydown', function (event) {
@@ -115,5 +116,49 @@ document.addEventListener('keydown', function (event) {
     });
 });
 
+function addBackspace() {
+    const TEXTAREA = document.querySelector('.textarea');
+
+    TEXTAREA.focus();
+
+    let cursorStart = TEXTAREA.selectionStart;
+    let cursorEnd = TEXTAREA.selectionEnd;
+    let currentText = TEXTAREA.value;
+
+    let stringStart = currentText.substring(0, cursorStart - 1);
+    let stringEnd = currentText.substring(cursorEnd, currentText.length);
+
+    TEXTAREA.value = stringStart + stringEnd;
+
+    cursorStart--;
+    cursorEnd = cursorStart;
+    TEXTAREA.setSelectionRange(cursorStart, cursorEnd);
+    TEXTAREA.focus();
+}
+
+function addTab() {
+    const TEXTAREA = document.querySelector('.textarea');
+
+    TEXTAREA.focus();
+    let letter = '\t';
+
+    let cursorStart = TEXTAREA.selectionStart;
+    let cursorEnd = TEXTAREA.selectionEnd;
+    let currentText = TEXTAREA.value;
+
+    let stringStart = currentText.substring(0, cursorStart);
+    let stringEnd = currentText.substring(cursorEnd, currentText.length);
+
+    TEXTAREA.value = stringStart + letter + stringEnd;
+
+    cursorStart = cursorStart + 1;
+    cursorEnd = cursorStart;
+    TEXTAREA.setSelectionRange(cursorStart, cursorEnd);
+    TEXTAREA.focus();
+}
+
+
 addMarkup();
 addPrintFunc();
+document.querySelector('.Backspace').addEventListener('click', addBackspace);
+document.querySelector('.Tab').addEventListener('click', addTab);
