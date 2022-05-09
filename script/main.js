@@ -28,15 +28,18 @@ function addMarkup() {
         constructor(symbols) {
             if (symbols[`${i}`].default !== undefined) {
                 this.symbol = symbols[`${i}`].default;
+                this.shift = symbols[`${i}`].shift;
                 if (symbols[`${i}`].ru !== undefined) {
                     this.symbol = symbols[`${i}`].default;
                     this.ru = symbols[`${i}`].ru;
                     this.code = symbols[`${i}`].code;
+                    this.shift = symbols[`${i}`].shift;
                 }
             } else {
                 this.symbol = symbols[`${i}`].en;
                 this.ru = symbols[`${i}`].ru;
                 this.code = symbols[`${i}`].code;
+                this.shift = symbols[`${i}`].shift;
             }
         }
 
@@ -50,12 +53,20 @@ function addMarkup() {
         KEYBOARD.appendChild(newKey);
         newKey.innerHTML = newButton.symbol;
 
-        if (newButton.symbol == '`' || newButton.symbol == 'Backspace' || newButton.symbol == 'Tab' || newButton.symbol == '\\' || newButton.symbol == 'Enter'
-            || newButton.symbol == 'CapsLock' || newButton.symbol == 'Ctrl' || newButton.symbol == 'Alt' || newButton.symbol == 'Shift'
-            || newButton.symbol == ' ' || newButton.symbol == 'Shift' || newButton.code == 'ArrowLeft' || newButton.code == 'ArrowUp'
+        if (newButton.symbol == 'Backspace' || newButton.symbol == 'Tab' || newButton.symbol == 'Del'
+            || newButton.symbol == 'Enter' || newButton.symbol == 'CapsLock' || newButton.symbol == 'Ctrl' || newButton.symbol == 'Alt'
+            || newButton.symbol == ' ' || newButton.code == 'ArrowLeft' || newButton.code == 'ArrowUp'
             || newButton.code == 'ArrowDown' || newButton.code == 'ArrowRight') {
             newKey.classList.add('side-key');
-        } else {
+        } else if (newButton.symbol == 'Shift') {
+            newKey.classList.add('side-key');
+            newKey.classList.add('shift');
+        }
+        else if (newButton.symbol == '`') {
+            newKey.classList.add('side-key');
+            newKey.classList.add('key');
+        }
+        else {
             newKey.classList.add('key');
         }
         newKey.classList.add(`${newButton.code}`);
@@ -104,23 +115,32 @@ document.addEventListener('keydown', function (event) {
     document.querySelector('.textarea').focus();
 
     let keycode = event.code;
-    if (keycode == 'Tab' || keycode == 'AltLeft' || keycode == 'AltRight') {
-        event.preventDefault();
+    if (keycode == 'CapsLock') {
+        addCaps();
     }
-    let keyClass = document.querySelector(`.${keycode}`).classList;
-    if (keyClass.contains('key')) {
-        keyClass.add('key-pressed');
-    } else {
-        keyClass.add('side-key-pressed');
+    else if (keycode == 'ShiftLeft' || keycode == 'ShiftRight') {
+        addShift();
+        event.target.addEventListener('keyup', removeShift);
     }
-
-    document.addEventListener('keyup', function () {
-        if (keyClass.contains('key')) {
-            keyClass.remove('key-pressed');
-        } else {
-            keyClass.remove('side-key-pressed');
+    else {
+        if (keycode == 'Tab' || keycode == 'AltLeft' || keycode == 'AltRight') {
+            event.preventDefault();
         }
-    });
+        let keyClass = document.querySelector(`.${keycode}`).classList;
+        if (keyClass.contains('key')) {
+            keyClass.add('key-pressed');
+        } else {
+            keyClass.add('side-key-pressed');
+        }
+
+        document.addEventListener('keyup', function () {
+            if (keyClass.contains('key')) {
+                keyClass.remove('key-pressed');
+            } else {
+                keyClass.remove('side-key-pressed');
+            }
+        });
+    }
 });
 
 function addBackspace() {
@@ -138,6 +158,25 @@ function addBackspace() {
     TEXTAREA.value = stringStart + stringEnd;
 
     cursorStart--;
+    cursorEnd = cursorStart;
+    TEXTAREA.setSelectionRange(cursorStart, cursorEnd);
+    TEXTAREA.focus();
+}
+
+function addDel() {
+    const TEXTAREA = document.querySelector('.textarea');
+
+    TEXTAREA.focus();
+
+    let cursorStart = TEXTAREA.selectionStart;
+    let cursorEnd = TEXTAREA.selectionEnd;
+    let currentText = TEXTAREA.value;
+
+    let stringStart = currentText.substring(0, cursorStart);
+    let stringEnd = currentText.substring(cursorEnd + 1, currentText.length);
+
+    TEXTAREA.value = stringStart + stringEnd;
+
     cursorEnd = cursorStart;
     TEXTAREA.setSelectionRange(cursorStart, cursorEnd);
     TEXTAREA.focus();
@@ -206,10 +245,48 @@ function addCaps() {
     TEXTAREA.focus();
 }
 
+function addShift() {
+    const TEXTAREA = document.querySelector('.textarea');
+    const KEYS = document.querySelectorAll('.key');
+    document.querySelector('.shift').classList.add('side-key-pressed');
+
+    KEYS.forEach(item => {
+        let upperCase = item.innerHTML.toLocaleUpperCase();
+        item.innerHTML = upperCase;
+    });
+
+    for (let i = 0; i < 13; i++) {
+        KEYS[i].innerHTML = SYMBOLS[i]['shift'];
+    }
+
+
+    TEXTAREA.focus();
+}
+
+function removeShift() {
+    const TEXTAREA = document.querySelector('.textarea');
+    const KEYS = document.querySelectorAll('.key');
+    document.querySelector('.shift').classList.remove('side-key-pressed');
+
+    KEYS.forEach(item => {
+        let lowerCase = item.innerHTML.toLocaleLowerCase();
+        item.innerHTML = lowerCase;
+    });
+    for (let i = 0; i < 13; i++) {
+        KEYS[i].innerHTML = SYMBOLS[i]['en'];
+    }
+
+    TEXTAREA.focus();
+}
 
 addMarkup();
 addPrintFunc();
 document.querySelector('.Backspace').addEventListener('click', addBackspace);
+document.querySelector('.Delete').addEventListener('click', addDel);
 document.querySelector('.Tab').addEventListener('click', addTab);
 document.querySelector('.Enter').addEventListener('click', addEnter);
-document.querySelector('.CapsLock').addEventListener('mousedown', addCaps);
+document.querySelector('.CapsLock').addEventListener('click', addCaps);
+document.querySelector('.ShiftLeft').addEventListener('mousedown', addShift);
+document.querySelector('.ShiftRight').addEventListener('mousedown', addShift);
+document.querySelector('.ShiftLeft').addEventListener('mouseup', removeShift);
+document.querySelector('.ShiftRight').addEventListener('mouseup', removeShift);
