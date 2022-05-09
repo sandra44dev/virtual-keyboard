@@ -19,7 +19,7 @@ function addMarkup() {
     const INFO = document.createElement("p");
     WRAPPER.appendChild(INFO);
     INFO.classList.add('info');
-    INFO.innerHTML = 'alt + space to change the language<br><br>developed on Windows OS';
+    INFO.innerHTML = 'left shift + alt to change the language<br><br>developed on Windows OS';
 
     let i;
 
@@ -27,8 +27,15 @@ function addMarkup() {
         constructor(symbols) {
             if (symbols[`${i}`].default !== undefined) {
                 this.symbol = symbols[`${i}`].default;
+                if (symbols[`${i}`].ru !== undefined) {
+                    this.symbol = symbols[`${i}`].default;
+                    this.ru = symbols[`${i}`].ru;
+                    this.code = symbols[`${i}`].code;
+                }
             } else {
                 this.symbol = symbols[`${i}`].en;
+                this.ru = symbols[`${i}`].ru;
+                this.code = symbols[`${i}`].code;
             }
         }
 
@@ -42,27 +49,24 @@ function addMarkup() {
         KEYBOARD.appendChild(newKey);
         newKey.innerHTML = newButton.symbol;
 
-        if (newButton.symbol == '`' || newButton.symbol == 'backspace' || newButton.symbol == 'tab' || newButton.symbol == '\\' || newButton.symbol == 'enter' || newButton.symbol == 'caps lock' || newButton.symbol == 'ctrl' || newButton.symbol == 'alt') {
+        if (newButton.symbol == '`' || newButton.symbol == 'Backspace' || newButton.symbol == 'Tab' || newButton.symbol == '\\' || newButton.symbol == 'Enter'
+            || newButton.symbol == 'CapsLock' || newButton.symbol == 'Ctrl' || newButton.symbol == 'Alt' || newButton.symbol == 'Shift'
+            || newButton.symbol == ' ' || newButton.symbol == 'Shift') {
             newKey.classList.add('side-key');
-        } else if (newButton.symbol == 'shift') {
-            newKey.classList.add('side-key');
-            newKey.classList.add('shift');
-        } else if (newButton.symbol == ' ') {
+        } else {
             newKey.classList.add('key');
-            newKey.classList.add('side-key');
-            newKey.classList.add('space');
-        } else { newKey.classList.add('key'); }
+        }
+        newKey.classList.add(`${newButton.code}`);
     }
 }
 
 function addPrintFunc() {
     const KEYS = document.querySelectorAll('.key');
-    console.log(KEYS)
     const TEXTAREA = document.querySelector('.textarea');
 
-    function printSymbol(letterKey) {
+    function printSymbol(item) {
         TEXTAREA.focus();
-        let letter = letterKey.currentTarget.innerHTML;
+        let letter = item.currentTarget.innerHTML;
 
         let cursorStart = TEXTAREA.selectionStart;
         let cursorEnd = TEXTAREA.selectionEnd;
@@ -75,15 +79,41 @@ function addPrintFunc() {
 
         cursorStart++;
         cursorEnd = cursorStart;
-        TEXTAREA.setSelectionRange(cursorStart, cursorEnd)
+        TEXTAREA.setSelectionRange(cursorStart, cursorEnd);
         TEXTAREA.focus();
-        console.log('hi')
     }
 
     KEYS.forEach(item => {
-        item.addEventListener('click', printSymbol)
+        item.addEventListener('mousedown', printSymbol);
     });
+
+    document.querySelector('.Backquote');
+    document.querySelector('.Backslash');
 }
+
+document.addEventListener('keydown', function (event) {
+    /* virtual keyboard animation when using real keyboard */
+    document.querySelector('.textarea').focus();
+
+    let keycode = event.code;
+    if (keycode == 'Tab' || keycode == 'AltLeft' || keycode == 'AltRight') {
+        event.preventDefault();
+    }
+    let keyClass = document.querySelector(`.${keycode}`).classList;
+    if (keyClass.contains('key')) {
+        keyClass.add('key-pressed');
+    } else {
+        keyClass.add('side-key-pressed');
+    }
+
+    document.addEventListener('keyup', function () {
+        if (keyClass.contains('key')) {
+            keyClass.remove('key-pressed');
+        } else {
+            keyClass.remove('side-key-pressed');
+        }
+    });
+});
+
 addMarkup();
 addPrintFunc();
-//document.body.onload = addPrintFunc;

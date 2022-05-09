@@ -1,237 +1,191 @@
 const SYMBOLS = Array.from([
     {
-        'default': '`',
-        'shift': '~',
-        'ru': 'ё',
+        en: '`', code: 'Backquote',
     },
     {
-        'default': '1',
-        'shift': '!',
+        en: '1', code: 'Digit1',
     },
     {
-        'default': '2',
-        'shift': '@',
+        en: '2', code: 'Digit2',
     },
     {
-        'default': '3',
-        'shift': '#',
+        en: '3', code: 'Digit3',
     },
     {
-        'default': '4',
-        'shift': '$',
+        en: '4', code: 'Digit4',
     },
     {
-        'default': '5',
-        'shift': '%',
+        en: '5', code: 'Digit5',
     },
     {
-        'default': '6',
-        'shift': '^',
+        en: '6', code: 'Digit6',
     },
     {
-        'default': '7',
-        'shift': '&',
+        en: '7', code: 'Digit7',
     },
     {
-        'default': '8',
-        'shift': '*',
+        en: '8', code: 'Digit8',
     },
     {
-        'default': '9',
-        'shift': '(',
+        en: '9', code: 'Digit9',
     },
     {
-        'default': '0',
-        'shift': ')',
+        en: '0', code: 'Digit0',
     },
     {
-        'default': '-',
-        'shift': '_',
+        en: '-', code: 'Minus',
     },
     {
-        'default': '=',
-        'shift': '+',
+        en: '=', code: 'Equal',
     },
     {
-        'default': 'backspace',
-    },  // second line
-    {
-        'default': 'tab',
+        en: 'Backspace', code: 'Backspace',
     },
     {
-        'en': 'q',
-        'ru': 'й',
+        en: 'Tab', code: 'Tab',
     },
     {
-        'en': 'w',
-        'ru': 'ц',
+        en: 'q', code: 'KeyQ',
     },
     {
-        'en': 'e',
-        'ru': 'у',
+        en: 'w', code: 'KeyW',
     },
     {
-        'en': 'r',
-        'ru': 'к',
+        en: 'e', code: 'KeyE',
     },
     {
-        'en': 't',
-        'ru': 'е',
+        en: 'r', code: 'KeyR',
     },
     {
-        'en': 'y',
-        'ru': 'н',
+        en: 't', code: 'KeyT',
     },
     {
-        'en': 'u',
-        'ru': 'г',
+        en: 'y', code: 'KeyY',
     },
     {
-        'en': 'i',
-        'ru': 'ш',
+        en: 'u', code: 'KeyU',
     },
     {
-        'en': 'o',
-        'ru': 'щ',
+        en: 'i', code: 'KeyI',
     },
     {
-        'en': 'p',
-        'ru': 'з',
+        en: 'o', code: 'KeyO',
     },
     {
-        'en': '[',
-        'ru': 'х',
+        en: 'p', code: 'KeyP',
     },
     {
-        'en': ']',
-        'ru': 'ъ',
+        en: '[', code: 'BracketLeft',
     },
     {
-        'en': '\\',
-        'ru': '\\',
-    },  // third line
-    {
-        'default': 'caps lock',
+        en: ']', code: 'BracketRight',
     },
     {
-        'en': 'a',
-        'ru': 'ф',
+        en: '\\', code: 'Backslash',
     },
     {
-        'en': 's',
-        'ru': 'ы',
+        en: 'CapsLock', code: 'CapsLock',
     },
     {
-        'en': 'd',
-        'ru': 'в',
+        en: 'a', code: 'KeyA',
     },
     {
-        'en': 'f',
-        'ru': 'а',
+        en: 's', code: 'KeyS',
     },
     {
-        'en': 'g',
-        'ru': 'п',
+        en: 'd', code: 'KeyD',
     },
     {
-        'en': 'h',
-        'ru': 'р',
+        en: 'f', code: 'KeyF',
     },
     {
-        'en': 'j',
-        'ru': 'о',
+        en: 'g', code: 'KeyG',
     },
     {
-        'en': 'k',
-        'ru': 'л',
+        en: 'h', code: 'KeyH',
     },
     {
-        'en': 'l',
-        'ru': 'д',
+        en: 'j', code: 'KeyJ',
     },
     {
-        'en': ';',
-        'ru': 'ж',
+        en: 'k', code: 'KeyK',
     },
     {
-        'en': "'",
-        'ru': 'э',
+        en: 'l', code: 'KeyL',
     },
     {
-        'default': 'enter',
-    },  // forth line
-    {
-        'default': 'shift',
+        en: ';', code: 'Semicolon',
     },
     {
-        'en': 'z',
-        'ru': 'я',
+        en: "'", code: 'Quote',
     },
     {
-        'en': 'x',
-        'ru': 'ч',
+        en: 'Enter', code: 'Enter',
+    },
+    //
+    {
+        en: 'Shift', code: 'ShiftLeft',
     },
     {
-        'en': 'c',
-        'ru': 'с',
+        en: 'z', code: 'KeyZ',
     },
     {
-        'en': 'v',
-        'ru': 'м',
+        en: 'x', code: 'KeyX',
     },
     {
-        'en': 'b',
-        'ru': 'и',
+        en: 'c', code: 'KeyC',
     },
     {
-        'en': 'n',
-        'ru': 'т',
+        en: 'v', code: 'KeyV',
     },
     {
-        'en': 'm',
-        'ru': 'ь',
+        en: 'b', code: 'KeyB',
     },
     {
-        'en': ',',
-        'ru': 'б',
+        en: 'n', code: 'KeyN',
     },
     {
-        'en': '.',
-        'ru': 'ю',
+        en: 'm', code: 'KeyM',
     },
     {
-        'en': '/',
-        'ru': '.',
+        en: ',', code: 'Comma',
     },
     {
-        'default': '⮙',
+        en: '.', code: 'Period',
     },
     {
-        'default': 'shift',
-    },  // fifth line
-    {
-        'default': 'ctrl',
+        en: '/', code: 'Slash',
     },
     {
-        'default': 'alt',
+        en: '⮙', code: 'ArrowUp',
     },
     {
-        'default': ' ',
+        en: 'Shift', code: 'ShiftRight',
+    },
+    // fifth line НЕ ОТРЕДАКТИРОВАЛА
+    {
+        en: 'Ctrl', code: 'ControlLeft',
     },
     {
-        'default': 'alt',
+        en: 'Alt', code: 'AltLeft',
     },
     {
-        'default': '⮘',
+        en: ' ', code: 'Space',
     },
     {
-        'default': '⮛',
+        en: 'Alt', code: 'AltRight',
     },
     {
-        'default': '⮚',
+        en: '⮘', code: 'ArrowLeft',
     },
     {
-        'default': 'ctrl',
+        en: '⮛', code: 'ArrowDown',
+    },
+    {
+        en: '⮚', code: 'ArrowRight',
+    },
+    {
+        en: 'Ctrl', code: 'ControlRight',
     },
 
 ])
