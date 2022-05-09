@@ -9,7 +9,8 @@ function addMarkup() {
 
     const TEXTAREA = document.createElement("textarea");
     WRAPPER.appendChild(TEXTAREA);
-    TEXTAREA.setAttribute('placeholder', 'time to type something...')
+    TEXTAREA.setAttribute('placeholder', 'time to type something...');
+    TEXTAREA.setAttribute('autofocus', 'true');
     TEXTAREA.classList.add('textarea');
 
     const KEYBOARD = document.createElement("div");
@@ -90,7 +91,13 @@ function addPrintFunc() {
 
     document.querySelector('.Backquote').addEventListener('mousedown', printSymbol);
     document.querySelector('.Backslash').addEventListener('mousedown', printSymbol);
+    document.querySelector('.Space').addEventListener('mousedown', printSymbol);
 }
+
+
+
+
+
 
 document.addEventListener('keydown', function (event) {
     /* virtual keyboard animation when using real keyboard */
@@ -178,9 +185,31 @@ function addEnter() {
     TEXTAREA.focus();
 }
 
+function addCaps() {
+    const TEXTAREA = document.querySelector('.textarea');
+    const KEYS = document.querySelectorAll('.key');
+
+    if (document.querySelector('.CapsLock').classList.contains('side-key-pressed')) {
+        KEYS.forEach(item => {
+            let lowerCase = item.innerHTML.toLocaleLowerCase();
+            item.innerHTML = lowerCase;
+            document.querySelector('.CapsLock').classList.remove('side-key-pressed');
+        });
+    } else {
+        KEYS.forEach(item => {
+            let upperCase = item.innerHTML.toLocaleUpperCase();
+            item.innerHTML = upperCase;
+            document.querySelector('.CapsLock').classList.add('side-key-pressed');
+        });
+    }
+
+    TEXTAREA.focus();
+}
+
 
 addMarkup();
 addPrintFunc();
 document.querySelector('.Backspace').addEventListener('click', addBackspace);
 document.querySelector('.Tab').addEventListener('click', addTab);
 document.querySelector('.Enter').addEventListener('click', addEnter);
+document.querySelector('.CapsLock').addEventListener('mousedown', addCaps);
