@@ -319,7 +319,7 @@ function newLayout() {
 function changeLanguage(language) {
     const KEYS = document.querySelectorAll('.key');
 
-    for (let i = 0; i < KEYS.length; i++) {
+    for (let i = 0; i < KEYS.length - 4; i++) {
 
         let searchTerm = KEYS[i].innerHTML;
 
