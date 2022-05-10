@@ -325,8 +325,10 @@ function changeLanguage(language) {
 
         if (language == 'en') {
             let currentObj = SYMBOLS.find(item => item.en === searchTerm);
-            if (currentObj.ru !== undefined) {
-                KEYS[i].innerHTML = currentObj.ru;
+            if (typeof currentObj !== 'undefined') {
+                if (typeof currentObj.ru !== 'undefined') {
+                    KEYS[i].innerHTML = currentObj.ru;
+                }
             }
         } else if (language == 'ru') {
             let currentObj = SYMBOLS.find(item => item.ru === searchTerm);
