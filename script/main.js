@@ -311,7 +311,6 @@ function newLayout() {
         localStorage.setItem('lang', 'ru');
     }
 
-    console.log(currentLang);
     changeLanguage(currentLang);
 }
 
