@@ -20,7 +20,7 @@ function addMarkup() {
     const INFO = document.createElement("p");
     WRAPPER.appendChild(INFO);
     INFO.classList.add('info');
-    INFO.innerHTML = 'left shift + alt to change the language<br><br>developed on Windows OS';
+    INFO.innerHTML = 'left ctrl + alt to change the language<br><br>developed on Windows OS';
 
     let i;
 
@@ -55,14 +55,14 @@ function addMarkup() {
 
         if (newButton.symbol == 'Backspace' || newButton.symbol == 'Tab' || newButton.symbol == 'Del'
             || newButton.symbol == 'Enter' || newButton.symbol == 'CapsLock' || newButton.symbol == 'Ctrl' || newButton.symbol == 'Alt'
-            || newButton.symbol == ' ' || newButton.code == 'ArrowLeft' || newButton.code == 'ArrowUp'
-            || newButton.code == 'ArrowDown' || newButton.code == 'ArrowRight') {
+            || newButton.symbol == ' ') {
             newKey.classList.add('side-key');
         } else if (newButton.symbol == 'Shift') {
             newKey.classList.add('side-key');
             newKey.classList.add('shift');
         }
-        else if (newButton.symbol == '`') {
+        else if (newButton.symbol == '`' || newButton.code == 'ArrowLeft' || newButton.code == 'ArrowUp'
+            || newButton.code == 'ArrowDown' || newButton.code == 'ArrowRight') {
             newKey.classList.add('side-key');
             newKey.classList.add('key');
         }
@@ -293,3 +293,78 @@ document.querySelector('.ShiftLeft').addEventListener('mousedown', addShift);
 document.querySelector('.ShiftRight').addEventListener('mousedown', addShift);
 document.querySelector('.ShiftLeft').addEventListener('mouseup', removeShift);
 document.querySelector('.ShiftRight').addEventListener('mouseup', removeShift);
+
+localStorage.setItem('lang', 'en');
+
+function newLayout() {
+
+    let currentLang = localStorage.getItem('lang');
+
+    if (currentLang == 'ru') {
+        currentLang = 'en';
+        changeLanguage(currentLang);
+        localStorage.setItem('lang', 'en');
+
+    } else if (currentLang == 'en') {
+        currentLang = 'ru';
+        changeLanguage(currentLang);
+        localStorage.setItem('lang', 'ru');
+    }
+
+    console.log(currentLang);
+    changeLanguage(currentLang);
+}
+
+
+
+function changeLanguage(language) {
+    const KEYS = document.querySelectorAll('.key');
+
+    for (let i = 0; i < KEYS.length; i++) {
+
+        let searchTerm = KEYS[i].innerHTML;
+
+        if (language == 'en') {
+            let currentObj = SYMBOLS.find(item => item.en === searchTerm);
+            if (currentObj.ru !== undefined) {
+                KEYS[i].innerHTML = currentObj.ru;
+            }
+        } else if (language == 'ru') {
+            let currentObj = SYMBOLS.find(item => item.ru === searchTerm);
+            if (currentObj !== undefined) {
+                KEYS[i].innerHTML = currentObj.en;
+            }
+        }
+
+    }
+}
+
+
+
+function runOnKeys(func, ...codes) {
+    let pressed = new Set();
+
+    document.addEventListener('keydown', function (event) {
+        pressed.add(event.code);
+
+        for (let code of codes) {
+            if (!pressed.has(code)) {
+                return;
+            }
+        }
+        pressed.clear();
+
+        newLayout();
+    });
+
+    document.addEventListener('keyup', function (event) {
+        pressed.delete(event.code);
+    });
+
+}
+
+runOnKeys(
+    newLayout(),
+    "AltLeft",
+    "ControlLeft"
+);
