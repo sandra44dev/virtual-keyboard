@@ -156,7 +156,7 @@ const SYMBOLS = Array.from([
         en: '.', code: 'Period', ru: 'ю',
     },
     {
-        en: '/', code: 'Slash', ru: '.',
+        en: '/', code: 'Slash', ru: '?',
     },
     {
         en: '⮙', code: 'ArrowUp',
