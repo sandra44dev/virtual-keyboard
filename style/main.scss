@@ -1,0 +1,163 @@
+@import url(normalize.css);
+
+$background: rosybrown;
+$textarea-color: rgb(240, 240, 240);
+$main-color: rgb(48, 48, 48);
+
+$main-key-color: rgb(230, 214, 214);
+$hover-key-color: rgb(221, 198, 198);
+$active-key-color: rgb(216, 191, 191);
+
+$side-key-color: rgb(181, 186, 178);
+$hover-side-key-color: rgb(174, 180, 170);
+$active-side-key-color: rgb(156, 164, 152);
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: $background;
+    color: $main-color;
+    font-size: 23px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    min-width: 800px;
+    margin: 60px auto 0 auto;
+    flex-direction: column;
+}
+
+.keyboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    width: 830px;
+    justify-content: center;
+    margin: 40px auto 0 auto;
+}
+
+textarea {
+    font: inherit;
+    font-size: 23px;
+    width: 476px;
+    height: 115px;
+    padding: 20px;
+    margin: 0 auto;
+    outline: none;
+    border: 1px solid $textarea-color;
+    background-color: $textarea-color;
+}
+
+.info {
+    display: flex;
+    color: whitesmoke;
+    text-align: center;
+    margin: 30px auto 0px auto;
+    line-height: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    user-select: none;
+}
+
+.key {
+    display: flex;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background-color: $main-key-color;
+    border: 1px solid $main-color;
+
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+
+    position: relative;
+    bottom: 5px;
+    box-shadow: 0px 4px #565656a5;
+
+    &:hover {
+        background-color: $hover-key-color;
+    }
+
+    &:active {
+        background-color: $active-key-color;
+        bottom: 2px;
+        box-shadow: 0px 1px #565656;
+        transition: 0.1s;
+    }
+
+
+}
+
+.key-pressed {
+    background-color: $active-key-color;
+    bottom: 2px;
+    box-shadow: 0px 1px #565656;
+    transition: 0.1s;
+}
+
+.side-key {
+
+    display: flex;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid $main-color;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    position: relative;
+    bottom: 5px;
+    box-shadow: 0px 4px #565656a5;
+
+    width: auto;
+    min-width: 25px;
+    flex-grow: 1;
+    background-color: $side-key-color;
+    padding: 0 10px;
+    font-size: 19px;
+
+    &:hover {
+        background-color: $hover-side-key-color;
+    }
+
+    &:active {
+        background-color: $active-side-key-color;
+        bottom: 2px;
+        box-shadow: 0px 1px #565656;
+        transition: 0.1s;
+    }
+}
+
+.side-key-pressed {
+    background-color: $active-side-key-color;
+    bottom: 2px;
+    box-shadow: 0px 1px #565656;
+    transition: 0.1s;
+}
+
+.caps {
+    background-color: cadetblue;
+}
+
+.ShiftLeft,
+.ShiftRight {
+    min-width: 70px;
+}
+
+.Space {
+    width: 378px;
+}
+
+.ArrowUp {
+    max-width: 25px;
+}
+
+.Backquote {
+    max-width: 25px;
+}
+
+.toUpperCase {
+    text-transform: uppercase;
+}
